@@ -268,7 +268,7 @@ dataloader = DataLoader(train_dataset,batch_size=2,shuffle=True)
 trained_model = train(model, optimizer, dataloader, num_epochs=30)
 
 torch.save(trained_model, "BERT_model")
-torch.save(trained_model.state_dict(), 'checkpoint1.pth')
+#torch.save(trained_model.state_dict(), 'checkpoint1.pth')
 
 # In[ ]:
 
