@@ -267,7 +267,7 @@ dataloader = DataLoader(train_dataset,batch_size=2,shuffle=True)
 
 trained_model = train(model, optimizer, dataloader, num_epochs=30)
 
-torch.save(model, '/home/cyqu')
+
 # In[ ]:
 
 
@@ -285,7 +285,7 @@ torch.cuda.set_device(device)
 
 torch.cuda.memory_allocated(device)
 
-
+torch.save(trained_model)
 # In[ ]:
 
 
