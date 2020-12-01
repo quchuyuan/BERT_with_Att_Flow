@@ -1,0 +1,6 @@
+torch==1.6.0
+spacy
+numpy
+pandas
+pytorch_pretrained_bert
+transformers
