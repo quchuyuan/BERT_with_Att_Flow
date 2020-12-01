@@ -32,14 +32,14 @@ val_encodings = data_processing.data_processing(val_url)
 
 
 for key in train_encodings.keys():
-    train_encodings[key] = train_encodings[key][0:100]
+    train_encodings[key] = train_encodings[key][0:80000]
 
 
 # In[14]:
 
 
 for key in val_encodings.keys():
-    val_encodings[key] = val_encodings[key][0:100]
+    val_encodings[key] = val_encodings[key][0:80000]
 
 
 # Templates for S/L to save time preprocessing
