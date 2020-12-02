@@ -19,7 +19,7 @@ from torch.utils.data import DataLoader
 
 # In[12]:
 
-
+"""
 train_url = "https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v2.0.json"
 val_url = "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v2.0.json"
 train_encodings =  data_processing.data_processing(train_url)
@@ -50,7 +50,7 @@ for key in val_encodings.keys():
 torch.save(train_encodings,r'D:\OneDrive\Courses\ECS289 NLP\train_encodings.pt')
 torch.save(val_encodings,r'D:\OneDrive\Courses\ECS289 NLP\val_encodings.pt')
 
-
+"""
 # In[16]:
 
 
