@@ -116,7 +116,7 @@ def predict(logits_start, logits_end, threshold = 0.1):
     p_start = F.softmax(logits_start, dim=-1)
     p_end = F.softmax(logits_end, dim=-1)
     # compute joint probability
-    p_joint = torch.triu(torch.bmm(p_start.unsqueeze(dim=2), p_end.unsqueeze(dim=1)))
+    p_joint = torch.triu(torch.bmm(p_start.unsqueeze(dim=1), p_end.unsqueeze(dim=1)))
     # get the batchwise indices
     max_row, _ = torch.max(p_joint, dim=2)
     max_col, _ = torch.max(p_joint, dim=1)
@@ -182,7 +182,7 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
         _, start_logits, end_logits = model(ipid, attm)
 
             # compute null score and make prediction:
-        start, end = predict(torch.squeeze(start_logits), torch.squeeze(end_logits), threshold)
+        start, end = predict(start_logits, end_logits, threshold)
         if start == 0 and end == 0:
             prediction = ""
         else:
