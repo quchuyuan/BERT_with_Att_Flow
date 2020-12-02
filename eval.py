@@ -50,14 +50,14 @@ for key in val_encodings.keys():
 torch.save(train_encodings,r'D:\OneDrive\Courses\ECS289 NLP\train_encodings.pt')
 torch.save(val_encodings,r'D:\OneDrive\Courses\ECS289 NLP\val_encodings.pt')
 
-"""
+
 # In[16]:
 
 
 val_url = "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v2.0.json"
 val_answer=data_processing.get_answer(val_url)
 torch.save(val_answer,r'val_answer.pt')
-
+"""
 train_encodings = torch.load(r'D:\OneDrive\Courses\ECS289 NLP\train_encodings.pt')
 val_encodings = torch.load(r'D:\OneDrive\Courses\ECS289 NLP\val_encodings.pt')
 val_answer=torch.load(r'val_answer.pt')
@@ -92,8 +92,8 @@ print(device)
 # In[20]:
 
 
-
-model = torch.load('BERT_model')
+model = BERT_plus_BiDAF(if_extra_modeling=True)
+model.load_state_dict(torch.load('BERT_model'))
 model.to(device)
 #model.eval()
 print("Model imported successfully")
