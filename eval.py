@@ -88,7 +88,7 @@ print(device)
 
 # In[20]:
 
-#model = BERT_plus_BiDAF(if_extra_modeling=True)
+model = BERT_plus_BiDAF(if_extra_modeling=True)
 model = torch.load('BERT_model')
 #model.eval()
 print("Model imported successfully")
