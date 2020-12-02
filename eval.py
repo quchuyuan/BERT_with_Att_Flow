@@ -89,13 +89,14 @@ print(device)
 # In[20]:
 
 model = BERT_plus_BiDAF(if_extra_modeling=True)
+model.to(device)
 model = torch.load('BERT_model')
 #model.eval()
 print("Model imported successfully")
 # In[21]:
 
 
-#model.to(device)
+
 
 
 
@@ -164,7 +165,7 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
     n = len(eval_dataset)
     exact_match = 0
     f1_sum = 0
-    #model.eval()
+    model.eval()
     for i in range(n):
         input_ids = eval_dataset[i]['input_ids']
         attention_mask = eval_dataset[i]['attention_mask']
