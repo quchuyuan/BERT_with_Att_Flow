@@ -177,8 +177,8 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
         ipid = torch.unsqueeze(input_ids, 0)
         attm = torch.unsqueeze(attention_mask, 0)
         with torch.cuda.device(0):
-            ipid = eval_dataset.cuda(async=True)  # in test loader, pin_memory = True
-            attm = answers.cuda(async=True)
+            ipid = ipid.cuda(async=True)  # in test loader, pin_memory = True
+            attm = attm.cuda(async=True)
         _, start_logits, end_logits = model(ipid, attm)
 
             # compute null score and make prediction:
