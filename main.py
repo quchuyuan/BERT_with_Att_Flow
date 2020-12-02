@@ -259,7 +259,7 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
 # In[28]:
 
 
-dataloader = DataLoader(train_dataset,batch_size=16,shuffle=True)
+dataloader = DataLoader(train_dataset,batch_size=8,shuffle=True)
 
 
 # In[29]:
