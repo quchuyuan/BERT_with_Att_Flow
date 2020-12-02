@@ -50,14 +50,15 @@ for key in val_encodings.keys():
 torch.save(train_encodings,r'D:\OneDrive\Courses\ECS289 NLP\train_encodings.pt')
 torch.save(val_encodings,r'D:\OneDrive\Courses\ECS289 NLP\val_encodings.pt')
 
-"""
+
 # In[16]:
-
-
+val_url = "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v2.0.json"
+val_answer=data_processing.get_answer(val_url)
+torch.save(val_answer,r'val_answer.pt')
+"""
 train_encodings = torch.load(r'D:\OneDrive\Courses\ECS289 NLP\train_encodings.pt')
 val_encodings = torch.load(r'D:\OneDrive\Courses\ECS289 NLP\val_encodings.pt')
-
-
+val_answer=torch.load(r'val_answer.pt')
 # In[17]:
 
 
@@ -229,6 +230,8 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
     exact_match = 0
     f1_sum = 0
     model.eval()
+    eval_dataset.to(device)
+    answers.to(device)
     for i in range(n):
         input_ids = eval_dataset[i]['input_ids']
         attention_mask = eval_dataset[i]['attention_mask']
@@ -267,9 +270,10 @@ dataloader = DataLoader(train_dataset,batch_size=4,shuffle=True)
 
 trained_model = train(model, optimizer, dataloader, num_epochs=30)
 
-torch.save(trained_model, "BERT_model")
-#torch.save(trained_model.state_dict(), 'checkpoint1.pth')
+PATH = "state_dict_model.pt"
 
+torch.save(trained_model, "BERT_model")
+torch.save(trained_model.state_dict(), PATH)
 # In[ ]:
 
 
@@ -277,7 +281,10 @@ em, f1 = evaluate(trained_model, val_dataset, val_answer )
 
 print("accuracy: ")
 print(em)
+print("f1 score: ")
+print(f1)
 # In[ ]:
+
 
 
 torch.cuda.set_device(device)
