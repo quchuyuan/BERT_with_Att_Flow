@@ -174,8 +174,8 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
         input_ids = eval_dataset[i]['input_ids']
         attention_mask = eval_dataset[i]['attention_mask']
         golden_answer = answers[i]['text']
-        ipid = torch.tensor(input_ids, 0)
-        attm = torch.tensor(attention_mask, 0)
+        ipid = torch.tensor(input_ids)
+        attm = torch.tensor(attention_mask)
         with torch.cuda.device(0):
             ipid = ipid.cuda(async=True)  # in test loader, pin_memory = True
             attm = attm.cuda(async=True)
