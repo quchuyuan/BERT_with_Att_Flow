@@ -90,8 +90,8 @@ print(device)
 
 
 model = torch.load('BERT_model')
-model.eval()
-
+#model.eval()
+print("Model imported successfully")
 # In[21]:
 
 
@@ -190,7 +190,7 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
     return accuracy, f1
 
 
-em, f1 = evaluate(trained_model, val_dataset, val_answer )
+em, f1 = evaluate(model, val_dataset, val_answer )
 
 print("accuracy: ")
 print(em)
