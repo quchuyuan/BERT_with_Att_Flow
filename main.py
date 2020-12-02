@@ -24,7 +24,7 @@ train_url = "https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v2.0.json"
 val_url = "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v2.0.json"
 train_encodings =  data_processing.data_processing(train_url)
 val_encodings = data_processing.data_processing(val_url)
-
+val_answer=data_processing.get_answer(val_url)
 
 # Create a smaller dataset for debugging
 
@@ -273,9 +273,10 @@ torch.save(trained_model, "BERT_model")
 # In[ ]:
 
 
-em, f1 = evaluate(trained_model, val_dataset, )
+em, f1 = evaluate(trained_model, val_dataset, val_answer )
 
-
+print("accuracy: ")
+print(em)
 # In[ ]:
 
 
