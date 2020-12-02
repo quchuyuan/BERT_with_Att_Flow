@@ -174,30 +174,29 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
         input_ids = eval_dataset[i]['input_ids']
         attention_mask = eval_dataset[i]['attention_mask']
         golden_answer = answers[i]['text']
-	ipid=torch.unsqueeze(input_ids,0)
-	attm=torch.unsqueeze(attention_mask,0)
-	with torch.cuda.device(0):
-		ipid = eval_dataset.cuda(async=True) # in test loader, pin_memory = True
-		attm = answers.cuda(async=True)
+        ipid = torch.unsqueeze(input_ids, 0)
+        attm = torch.unsqueeze(attention_mask, 0)
+        with torch.cuda.device(0):
+            ipid = eval_dataset.cuda(async=True)  # in test loader, pin_memory = True
+            attm = answers.cuda(async=True)
         _, start_logits, end_logits = model(ipid, attm)
 
-        # compute null score and make prediction:
+            # compute null score and make prediction:
         start, end = predict_index(start_logits, end_logits, threshold)
         if start == 0 and end == 0:
             prediction = ""
         else:
             tokens = tokenizer.convert_ids_to_tokens(input_ids)
-            prediction = ' '.join(tokens[start:end+1])
-        
-        #exact match
-        if(prediction == golden_answer):
+            prediction = ' '.join(tokens[start:end + 1])
+
+            # exact match
+        if (prediction == golden_answer):
             exact_match = exact_match + 1
-        #F1_score
-        f1_sum = f1_sum + get_F1_score(golden_answer, prediction)       
-    accuracy = exact_match/n
+            # F1_score
+        f1_sum = f1_sum + get_F1_score(golden_answer, prediction)
+    accuracy = exact_match / n
     f1 = f1_sum / n
     return accuracy, f1
-
 
 em, f1 = evaluate(model, val_dataset, val_answer )
 
