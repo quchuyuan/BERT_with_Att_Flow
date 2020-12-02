@@ -170,8 +170,9 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
     exact_match = 0
     f1_sum = 0
     model.eval()
-    eval_dataset.to(device)
-    answers.to(device)
+    with torch.cuda.device(0):
+	    eval_dataset = eval_dataset.cuda(async=True) # in test loader, pin_memory = True
+	    answers = answers.cuda(async=True)
     for i in range(n):
         input_ids = eval_dataset[i]['input_ids']
         attention_mask = eval_dataset[i]['attention_mask']
