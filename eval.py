@@ -170,6 +170,8 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
     exact_match = 0
     f1_sum = 0
     model.eval()
+    eval_dataset.to(device)
+    answers.to(device)
     for i in range(n):
         input_ids = eval_dataset[i]['input_ids']
         attention_mask = eval_dataset[i]['attention_mask']
