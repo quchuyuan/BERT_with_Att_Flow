@@ -170,15 +170,16 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
     exact_match = 0
     f1_sum = 0
     model.eval()
-    with torch.cuda.device(0):
-	    eval_dataset = eval_dataset.cuda(async=True) # in test loader, pin_memory = True
-	    answers = answers.cuda(async=True)
     for i in range(n):
         input_ids = eval_dataset[i]['input_ids']
         attention_mask = eval_dataset[i]['attention_mask']
         golden_answer = answers[i]['text']
-
-        _, start_logits, end_logits = model(torch.unsqueeze(input_ids,0), torch.unsqueeze(attention_mask,0))
+	ipid=torch.unsqueeze(input_ids,0)
+	attm=torch.unsqueeze(attention_mask,0)
+	with torch.cuda.device(0):
+	    ipid = eval_dataset.cuda(async=True) # in test loader, pin_memory = True
+	    attm = answers.cuda(async=True)
+        _, start_logits, end_logits = model(ipid, attm)
 
         # compute null score and make prediction:
         start, end = predict_index(start_logits, end_logits, threshold)
