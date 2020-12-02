@@ -223,6 +223,19 @@ def data_processing(url):
 
     return encodings
 
+def get_answer(url):
+    response = urllib.request.urlopen(url)
+    raw = pd.read_json(response)
+    contexts, questions, answers, ids = load_data(raw)
+    add_end_idx(answers,contexts)
+    tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
+    encodings = tokenizer(questions, contexts, truncation = True, padding = True)
+    add_token_positions(encodings,answers,tokenizer)
+    paddingLengths = postTokenize(encodings)
+    modify_token_positions(encodings,paddingLengths,answers)
+
+    return answers
+
 if __name__ == "__main__":
     #union test and utilize example below
     encodings =  data_processing("https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v2.0.json", "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v2.0.json")
