@@ -182,7 +182,7 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
         _, start_logits, end_logits = model(ipid, attm)
 
             # compute null score and make prediction:
-        start, end = predict_index(start_logits, end_logits, threshold)
+        start, end = predict(start_logits, end_logits, threshold)
         if start == 0 and end == 0:
             prediction = ""
         else:
