@@ -1,5 +1,3 @@
-
-
 import torch
 import torch.optim as optim
 import torch.nn as nn
@@ -9,7 +7,7 @@ import collections, time, spacy, copy
 from layers.bert_plus_bidaf import BERT_plus_BiDAF
 from utils import data_processing
 from torch.utils.data import DataLoader
-#from transformers import BertTokenizerFast
+from transformers import BertTokenizerFast
 #import nltk
 #nltk.download('punkt')
 # This part should be data loading and processing.
@@ -26,35 +24,18 @@ val_url = "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v2.0.json"
 train_encodings =  data_processing.data_processing(train_url)
 val_encodings = data_processing.data_processing(val_url)
 val_answer=data_processing.get_answer(val_url)
-
 # Create a smaller dataset for debugging
-
 # In[13]:
-
-
 for key in train_encodings.keys():
     train_encodings[key] = train_encodings[key][0:80000]
-
-
 # In[14]:
-
-
 for key in val_encodings.keys():
     val_encodings[key] = val_encodings[key][0:80000]
-
-
 # Templates for S/L to save time preprocessing
-
 # In[15]:
-
-
 torch.save(train_encodings,r'D:\OneDrive\Courses\ECS289 NLP\train_encodings.pt')
 torch.save(val_encodings,r'D:\OneDrive\Courses\ECS289 NLP\val_encodings.pt')
-
-
 # In[16]:
-
-
 val_url = "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v2.0.json"
 val_answer=data_processing.get_answer(val_url)
 torch.save(val_answer,r'val_answer.pt')
@@ -101,7 +82,7 @@ print("Model imported successfully")
 # In[21]:
 
 
-tokenizer = transformers.BertTokenizerFast.from_pretrained('bert-base-uncased')
+tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
 
 
 
@@ -220,7 +201,3 @@ torch.cuda.memory_allocated(device)
 
 
 # In[ ]:
-
-
-
-
