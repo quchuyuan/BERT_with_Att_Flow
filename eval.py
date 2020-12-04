@@ -9,7 +9,7 @@ import collections, time, spacy, copy
 from layers.bert_plus_bidaf import BERT_plus_BiDAF
 from utils import data_processing
 from torch.utils.data import DataLoader
-from transformers import BertTokenizerFast
+#from transformers import BertTokenizerFast
 #import nltk
 #nltk.download('punkt')
 # This part should be data loading and processing.
@@ -101,7 +101,7 @@ print("Model imported successfully")
 # In[21]:
 
 
-tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
+tokenizer = transformers.BertTokenizerFast.from_pretrained('bert-base-uncased')
 
 
 
