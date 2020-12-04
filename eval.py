@@ -171,6 +171,8 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
     f1_sum = 0
     model.eval()
     for i in range(n):
+        if i%1000==0:
+            print('evaluated {}/{}:'.format(i, n))
         input_ids = eval_dataset[i]['input_ids']
         attention_mask = eval_dataset[i]['attention_mask']
         golden_answer = answers[i]['text']
@@ -193,7 +195,7 @@ def evaluate(model, eval_dataset, answers, threshold=0.1):
         if (prediction == golden_answer):
             exact_match = exact_match + 1
             # F1_score
-        f1_sum = f1_sum + get_F1_score(golden_answer, prediction)
+        f1_sum = f1_sum + compute_f1(golden_answer, prediction)
     accuracy = exact_match / n
     f1 = f1_sum / n
     return accuracy, f1
