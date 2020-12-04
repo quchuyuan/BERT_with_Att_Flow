@@ -124,7 +124,7 @@ def predict(logits_start, logits_end, threshold = 0.1):
     end = torch.argmax(max_col, dim=-1)
     # check if indices are greater than no answer probability by threshold
     p_na = p_joint[:,0,0]
-    max_prob = torch.max(max_row,dim=-1)
+    max_prob,_ = torch.max(max_row,dim=-1)
     start[p_na + threshold > max_prob] = 0
     end[p_na + threshold > max_prob] = 0
     # adjust to the encoding structure
