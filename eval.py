@@ -10,7 +10,7 @@ from layers.bert_plus_bidaf import BERT_plus_BiDAF
 from utils import data_processing
 from torch.utils.data import DataLoader
 import nltk
-
+nltk.download('punkt')
 # This part should be data loading and processing.
 # 
 # Input: SQuAD dataset handler/url/json
