@@ -100,7 +100,7 @@ print("Model imported successfully")
 # In[21]:
 
 
-
+tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
 
 
 
