@@ -9,7 +9,7 @@ import collections, time, spacy, copy
 from layers.bert_plus_bidaf import BERT_plus_BiDAF
 from utils import data_processing
 from torch.utils.data import DataLoader
-
+import nltk
 
 # This part should be data loading and processing.
 # 
@@ -146,8 +146,8 @@ def word_tokenize(sent, nlp):
 
 
 def compute_f1(a_gold, a_pred):
-    gold_toks = word_tokenize(a_gold)
-    pred_toks = word_tokenize(a_pred)
+    gold_toks = nltk.word_tokenize(a_gold)
+    pred_toks = nltk.word_tokenize(a_pred)
     common = collections.Counter(gold_toks) & collections.Counter(pred_toks)
     num_same = sum(common.values())
     if len(gold_toks) == 0 or len(pred_toks) == 0:
